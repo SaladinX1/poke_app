@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Pokemon from './components/pokemon'
+import Header from './components/header'
 
 import './output.css'
 
@@ -25,14 +26,10 @@ function App() {
 
         const data = await response.json();
         const results = await data.results;
-
-        console.log(data);
-        for(let i of results) {
-          console.log(i);
-        }
+      console.log(results);
+      
         setPokemons(results);
         setLoading(false);
-
 
         
       } catch (error) {
@@ -51,25 +48,18 @@ function App() {
 
   return (
     <>
+    <Header />
     { pokemons && !loading && (
-         <div className='min-h-full min-w-full '>
-         <p className='bg-gray-500  text-center'>We are here</p>
-    
-         <div className='flex flex-wrap w-full  bg-green-400 '>
-
+         <div  className='flex flex-wrap justify-evenly min-h-full'>
+        
 
         {pokemons.map((poke, index) => {
           let pokeUri : string = poke.url.replace("https://pokeapi.co/api/v2/","")
-            console.log(poke, pokeUri)
             return (
-              <div key={index} className=' w-12 p-20 mt-2 text-gray-600 h-7'>
-                  <p className='bg-blue-400'>{poke.name}</p>
-                  <Pokemon url={pokeUri}/>
-              </div>
+                  <Pokemon key={index} url={pokeUri}/>
             )
       })}
 
-      </div>
      </div>
 
     )}
